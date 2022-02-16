@@ -18,7 +18,7 @@ namespace Company.Function
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "product/{id:int}")] HttpRequest req, int id, ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request." + id);
+            log.LogInformation("[INFO]OJT Demo HTTP trigger function processed a request." + id);
             try
             {
                 List<Product> productData = new List<Product>();
