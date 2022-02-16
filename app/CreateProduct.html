@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<body>
+    <style>
+        fieldset{
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 2px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            padding: 0 .625em;
+        }
+
+        label{
+            cursor: pointer;
+            display: inline-block;
+            padding: 3px 6px;
+            text-align: right;
+            width: 150px;
+            vertical-align: top;
+        }
+
+        input{
+            font-size: inherit;
+        }
+   
+    </style>
+
+<!-- ProductID: <input id="ProductID" type="text" value="8"> <br> -->
+<label for="Name" >Name:</label> <input id="product_Name" type="text" value="Surface Duo 2" size=80 align="left"><br>
+<label for="Price" >Price:</label> <input id="product_Price" type="text" value="27000" size=80 align="left"> <br>
+<label for="Quantity" >Quantity:</label> <input id="product_Quantity" type="text" value="8" size=80 align="left"> <br>
+<label for="Category" >Category:</label>  <input id="category_Name" type="text" value="Mobile Device" size=80 align="left"> <br>
+<label for="Description" >Description:</label> <textarea id="product_Description" cols="99" rows="10" align="left"></textarea> <br>
+<div>
+    <button type="button" onclick="callapi();">Create</button>
+</div>
+<div id="result"></div>
+<br><a href="index.html">Return</a></p>  
+
+<script type="text/javascript">
+    function callapi() { 
+        const obj = {hello: "world"};
+        const method = "POST";
+        const body = JSON.stringify(obj);
+        const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        };
+        fetch('/api/product/'+document.getElementById("id").value)
+      .then(response => response.json())
+      .then(data => showdata(data));    
+      }
+
+
+ </script>
+
+</body>
+</html>

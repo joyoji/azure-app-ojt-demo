@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<body>
+
+ProductID: <input id="id" type="text" value="8">
+<button type="button" onclick="callapi();">Search</button>
+
+<div id="result"></div>
+
+
+<script type="text/javascript">
+    function callapi() { 
+        fetch('/api/product/'+document.getElementById("id").value)
+      .then(response => response.json())
+      .then(data => showdata(data));    
+      }
+
+      function showdata(data) {
+            var mainContainer = document.getElementById("result");
+            mainContainer.textContent = "";
+            var div = document.createElement("div");
+
+            if(data == undefined || data == null || data.length == 0){
+                div.innerHTML = " <p> Data not found.";
+                mainContainer.appendChild(div); 
+                return;
+            }
+            for (var i = 0; i < data.length; i++) {
+                div.innerHTML = '<p>ID: ' + data[i].product_ID + ' <p>';
+                div.innerHTML+= 'Name: ' + data[i].product_Name + ' <p>';
+                div.innerHTML+= 'Price: ' + data[i].product_Price + ' <p>';
+                div.innerHTML+= 'Quantity: ' + data[i].product_Quantity + ' <p>';
+                div.innerHTML+= 'Category: ' + data[i].category_Name + ' <p>';
+                div.innerHTML+= 'Description: ' + data[i].product_Description + ' <p>';                                      
+                mainContainer.appendChild(div);
+            }
+
+    }
+ </script>
+<p><p><a href="index.html">Return</a></p>  
+
+</body>
+</html>

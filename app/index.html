@@ -9,12 +9,35 @@
 </head>
 
 <body>
-  <div id="message"></div>
+  Product Management System: 
+
+  <p><a href="CreateProduct.html">Create Product</a></p>
+  <p><a href="GetProductById.html">Search Product</a></p>  
+  <p><a href="DeleteProduct.html">Delete Product</a></p>
+
+</script>
+
+
+</html>
+
+<!--
+  <p><a href="#">Update Product</a></p>   
+  <script type="text/javascript">
+    var myVar="hello";
+    function exampleFunction() { alert('You triggered an alert!'); }
+ </script>
+
+
   <script>
-    fetch('/api/HttpTrigger1?name=tsubakimoto')
+    fetch('/api/product/6')
       .then(response => response.text())
       .then(text => document.getElementById('message').textContent = text);
   </script>
-</body>
 
-</html>
+<script>
+  (async function() {
+      const { text } = await( await fetch(`/api/message`)).json();
+      document.querySelector('#name').textContent = text;
+  }())
+  </script>
+-->

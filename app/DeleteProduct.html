@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<body>
+
+ProductID: <input id="id" type="text" value="8">
+<button type="button" onclick="callapi();">Delete</button>
+
+<div id="result"></div>
+
+
+<script type="text/javascript">
+    function callapi() {
+        var key = document.getElementById("id").value;
+        fetch('/api/product/' + key, {method:'DELETE'})
+        .then(function(response) {
+            if(response.ok) {
+                message = 'Operation done(ProductID=' + key + ' was deleted.)';
+            }else if(response.status == 404){
+                message = 'Operation failed(ProductID=' + key + ' was not found.)';
+            }else{
+                message = 'Operation failed with exception';   
+            }
+            var mainContainer = document.getElementById("result");
+            mainContainer.innerHTML = message;
+        });
+    }         
+ </script>
+<p><p><a href="index.html">Return</a></p>  
+
+</body>
+</html>
