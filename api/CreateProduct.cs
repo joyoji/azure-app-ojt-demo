@@ -19,7 +19,7 @@ namespace Company.Function
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "product")] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.LogInformation("C# HTTP trigger CreateProduct function processed a request.");
             try
             {
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -29,7 +29,7 @@ namespace Company.Function
                     string queryString = @"INSERT INTO [ProductInformation](Product_Name,Product_Description,Product_Price,Product_Quantity,Category_Name)
                      VALUES(@Product_Name,@Product_Description,@Product_Price,@Product_Quantity,@Category_Name)";
                     using (SqlCommand cmd = new SqlCommand(queryString))
-                    {
+                    {                      
                         cmd.Parameters.AddWithValue("@Product_Name", productData.Product_Name);
                         cmd.Parameters.AddWithValue("@Product_Description", productData.Product_Description);
                         cmd.Parameters.AddWithValue("@Product_Price", productData.Product_Price);
@@ -44,6 +44,7 @@ namespace Company.Function
                 return new OkObjectResult(productData);
             }
             catch (Exception ex) {
+                log.LogInformation("sqlcoommand ExecuteNonQuery failed." + ex.Message);                
                 return new BadRequestObjectResult(ex.Message);
             }
         }

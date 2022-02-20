@@ -31,7 +31,7 @@
 <label for="Price" >Price:</label> <input id="product_Price" type="text" value="27000" size=80 align="left"> <br>
 <label for="Quantity" >Quantity:</label> <input id="product_Quantity" type="text" value="8" size=80 align="left"> <br>
 <label for="Category" >Category:</label>  <input id="category_Name" type="text" value="Mobile Device" size=80 align="left"> <br>
-<label for="Description" >Description:</label> <textarea id="product_Description" cols="99" rows="10" align="left"></textarea> <br>
+<label for="Description" >Description:</label> <textarea id="product_Description" cols="99" rows="10" align="left">bbbbb</textarea> <br>
 <div>
     <button type="button" onclick="callapi();">Create</button>
 </div>
@@ -40,16 +40,31 @@
 
 <script type="text/javascript">
     function callapi() { 
-        const obj = {hello: "world"};
+        //[{"product_ID":8,"product_Name":"Huawei1","product_Description":"bbbbbbb","product_Price":30,"product_Quantity":1000,"category_Name":"smartphone"}]
+        // const obj = {"product_ID":8,"product_Name":"Huawei1","product_Description":"bbbbbbb","product_Price":30,"product_Quantity":2000,"category_Name":"smartphone"};
+        var product = {};
+        product.product_Name =  document.getElementById("product_Name").value ;
+        product.product_Description = document.getElementById("product_Description").value;
+        product.product_Price = document.getElementById("product_Price").value;
+        product.product_Quantity = document.getElementById("product_Quantity").value;
+        product.category_Name = document.getElementById("category_Name").value;                
         const method = "POST";
-        const body = JSON.stringify(obj);
+        const body = JSON.stringify(product);
+        //alert("body is : " + body);        
         const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
         };
-        fetch('/api/product/'+document.getElementById("id").value)
-      .then(response => response.json())
-      .then(data => showdata(data));    
+        fetch('/api/product/',  {method, headers, body})
+        .then(function(response) {
+            if(response.ok) {
+                message = 'Operation done: one product was added';
+            }else{
+                message = 'Operation failed with exception';   
+            }
+            var mainContainer = document.getElementById("result");
+            mainContainer.innerHTML = message;
+        });
       }
 
 
